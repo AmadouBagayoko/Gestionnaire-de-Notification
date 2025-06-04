@@ -16,7 +16,7 @@ public class Main {
         System.out.println("\n=== Bienvenue dans le Système de Notification ===");
 
         while (true) {
-            System.out.println("\n Vouliez vous vous connecter entant : ?");
+            System.out.println("\nConnectez-vous en tant que :");
             System.out.println("1. Administrateur");
             System.out.println("2. Employé");
             System.out.println("3. Quitter");
@@ -34,9 +34,10 @@ public class Main {
                     Administrateur admin = adminService.seConnecter(email, mdp);
 
                     if (admin != null) {
-                        System.out.println("\n Connexion réussie !");
+                        System.out.println("\nConnexion réussie !");
                         System.out.println("Bienvenue " + admin.getPrenom() + " " + admin.getNom());
 
+                        // Menu Administrateur
                         EmployeService employeService = new EmployeService();
 
                         while (true) {
@@ -56,13 +57,13 @@ public class Main {
                                     String prenomEmp = scanner.nextLine();
                                     System.out.print("Email : ");
                                     String emailEmp = scanner.nextLine();
-                                    String motDePasselEmp = scanner.nextLine();
-                                    System.out.print("Mot de Passe : ");
-                                    employeService.ajouterEmploye(nomEmp, prenomEmp, emailEmp,motDePasselEmp);
+                                    System.out.print("Mot De Passe : ");
+                                    String motDePasseEmp = scanner.nextLine();
+                                    employeService.ajouterEmploye(nomEmp, prenomEmp, emailEmp,motDePasseEmp);
                                     break;
 
                                 case "2":
-                                    System.out.println("\nListe des employés :");
+                                    System.out.println("\n Liste des employés :");
                                     var liste = employeService.listerEmployes();
                                     for (var emp : liste) {
                                         System.out.println(emp.getId() + " - " + emp.getPrenom() + " " + emp.getNom() + " (" + emp.getEmail() + ")");
@@ -76,12 +77,14 @@ public class Main {
 //                                    break;
 
                                 case "4":
-                                    System.out.println("Retour au menu principal...");
-                                    return;
+                                    System.out.println(" Retour au menu principal...");
+                                    break;
 
                                 default:
-                                    System.out.println("Choix invalide.");
+                                    System.out.println(" Choix invalide.");
                             }
+
+                            if (choixAdmin.equals("4")) break;
                         }
 
                     } else {
@@ -91,12 +94,15 @@ public class Main {
 
                 case "2":
                     System.out.println("\n[EMPLOYÉ] - Connexion à venir...");
+                    // Ici, tu ajouteras la connexion et les fonctionnalités employé plus tard
                     break;
+
                 case "3":
-                    System.out.println("Au revoir !");
+                    System.out.println("👋 Au revoir !");
                     return;
+
                 default:
-                    System.out.println("Choix invalide.");
+                    System.out.println(" Choix invalide.");
             }
         }
     }

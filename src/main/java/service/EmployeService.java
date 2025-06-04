@@ -31,7 +31,7 @@ public class EmployeService {
         }
     }
 
-    public void ajouterEmploye(String nom, String prenom, String email) {
+    public void ajouterEmploye(String nom, String prenom, String email, String motDePasse) {
         String sql = "INSERT INTO employes(nom, prenom, email,motDePasse) VALUES (?, ?, ?,?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
