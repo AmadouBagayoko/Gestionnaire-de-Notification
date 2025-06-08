@@ -39,7 +39,7 @@ public class AdminService {
                 stmt.setString(3, "admin@gmail.com");
                 stmt.setString(4, "admin123");
                 stmt.executeUpdate();
-                System.out.println("✔️ Administrateur par défaut ajouté !");
+                System.out.println("Administrateur par défaut ajouté !");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

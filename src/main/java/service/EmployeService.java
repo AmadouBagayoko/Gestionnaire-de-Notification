@@ -1,5 +1,6 @@
 package service;
 
+import model.Administrateur;
 import model.Employe;
 
 import java.sql.*;
@@ -11,7 +12,7 @@ public class EmployeService {
     public EmployeService() {
         creerTableEmploye();
     }
-
+//creation de la table employes
     private void creerTableEmploye() {
         String sql = """
             CREATE TABLE IF NOT EXISTS employes (
@@ -29,6 +30,29 @@ public class EmployeService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    //logique de la connexion d'un employe
+    public Employe seConnecter(String email, String motDePasse) {
+        String sql = "SELECT * FROM employes WHERE email = ? AND motDePasse = ?";
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            stmt.setString(2, motDePasse);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Employe(
+                        rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        rs.getString("motDePasse")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Échec de connexion
     }
 
     public void ajouterEmploye(String nom, String prenom, String email, String motDePasse) {
@@ -69,5 +93,8 @@ public class EmployeService {
         }
 
         return liste;
+    }
+
+    public void supprimerEmploye(int id) {
     }
 }
