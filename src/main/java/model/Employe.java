@@ -21,4 +21,23 @@ public class Employe {
     public String getPrenom() { return prenom; }
     public String getEmail() { return email; }
     public  String getMotDePasse() {return  motDePasse;}
+
+
+    public void recevoirNotification(String message) {
+//        System.out.println("\u001B[32mNotification pour " + prenom + " " + nom + " : " + message + "\u001B[0m");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employe employe = (Employe) obj;
+        return this.id == employe.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
 }

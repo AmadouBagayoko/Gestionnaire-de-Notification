@@ -4,7 +4,7 @@ import model.Administrateur;
 import model.Employe;
 import service.AdminService;
 import service.EmployeService;
-
+import service.NotificationService;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +13,7 @@ public class Main {
 
         AdminService adminService = new AdminService();
         EmployeService employeService = new EmployeService();
+        NotificationService notificationService = new NotificationService();
 
         // Création d’un admin par défaut
         adminService.insererAdminParDefaut();
@@ -28,6 +29,7 @@ public class Main {
             String choix = scanner.nextLine();
 
             switch (choix) {
+                // la logique de connexion en tant que Administrateur
                 case "1" -> {
                     System.out.print("Email : ");
                     String email = scanner.nextLine();
@@ -41,7 +43,7 @@ public class Main {
                         System.out.println("Email ou mot de passe incorrect.");
                     }
                 }
-
+                // la logique de connexion en tant que Employe
                 case "2" -> {
                     System.out.print("Email : ");
                     String emailEmp = scanner.nextLine();
@@ -50,7 +52,7 @@ public class Main {
 
                     Employe employe = employeService.seConnecter(emailEmp, mdpEmp);
                     if (employe != null) {
-                        new EmployeController(scanner).afficherMenu(employe);
+                        new EmployeController(scanner,notificationService).afficherMenu(employe);
                     } else {
                         System.out.println("Email ou mot de passe incorrect.");
                     }
