@@ -33,7 +33,7 @@ public class EmployeController {
 
             switch (choix) {
                 case "1":
-                    System.out.println("Fonctionnalité à venir...");
+                    notificationService.afficherNotifications(employe);
                     break;
 
                 case "2":
@@ -63,15 +63,21 @@ public class EmployeController {
                     break;
 
                 case "5":
+                    // Vérifie si l'employé est abonné
                     if (!notificationService.estAbonne(employe)) {
-                        System.out.println("Vous devez être abonné pour envoyer un message.");
+                        System.out.println(" Vous devez être abonné pour envoyer un message.");
                     } else {
-                        System.out.print("Entrez le message à envoyer : ");
+                        System.out.print(" Entrez le message à envoyer : ");
+                        //scanner.nextLine(); // pour consommer l'éventuel retour à la ligne
                         String message = scanner.nextLine();
+
+                        // Envoie le message à tous les abonnés sauf l'expéditeur
                         notificationService.envoyerMessage(employe, message);
-                        System.out.println("Message envoyé aux abonnés !");
+
+                        System.out.println(" Message envoyé aux abonnés !");
                     }
                     break;
+
 
                 case "6":
                     System.out.println("Déconnexion...");
