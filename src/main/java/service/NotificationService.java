@@ -136,17 +136,20 @@ public class NotificationService {
     public void envoyerMessage(Employe expediteur, String message) {
         for (Employe abonne : abonnes) {
             if (!abonne.equals(expediteur)) {
-                // Enregistrer dans la base (contenu sera formaté à l'intérieur de la méthode)
                 enregistrerNotification(abonne.getId(), expediteur, message);
 
-                // Afficher via les canaux (contenu formaté ici uniquement pour affichage)
                 String contenuAffichage = "De " + expediteur.getPrenom() + " " + expediteur.getNom() + " : " + message;
+
                 for (Notification canal : canauxNotification) {
                     canal.notifier(abonne, contenuAffichage);
                 }
             }
         }
+
+        // ✔️ Affichage unique après envoi
+        //System.out.println(" Message envoyé aux abonnés !");
     }
+
 
 
     private void enregistrerNotification(int destinataireId, Employe expediteur, String message) {
