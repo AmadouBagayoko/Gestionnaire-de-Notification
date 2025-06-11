@@ -1,6 +1,7 @@
 package controller;
 
 import model.Employe;
+import service.GestionAbonnement;
 import service.NotificationService;
 import java.util.Scanner;
 
@@ -26,7 +27,8 @@ public class EmployeController {
             System.out.println("3. M’abonner");
             System.out.println("4. Me désabonner");
             System.out.println("5. Envoyer un message");
-            System.out.println("6. Se déconnecter");
+            System.out.println("6. Voir la liste des abonnés");
+            System.out.println("7. Se déconnecter");
             System.out.print("Votre choix : ");
             String choix = scanner.nextLine();
             System.out.println("\n");
@@ -77,9 +79,13 @@ public class EmployeController {
                         System.out.println(" Message envoyé aux abonnés !");
                     }
                     break;
-
-
                 case "6":
+                    GestionAbonnement gestionAbonnement= new GestionAbonnement();
+                    gestionAbonnement.afficherAbonnes();
+                    break;
+
+
+                case "7":
                     System.out.println("Déconnexion...");
                     return;
 

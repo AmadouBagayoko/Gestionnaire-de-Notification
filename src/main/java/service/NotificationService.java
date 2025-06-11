@@ -37,10 +37,10 @@ public class NotificationService {
             e.printStackTrace();
         }
     }
-// creation de la table NotificationConsole
+// creation de la table Notification
     private void createTableNotificationsConsole() {
         String sql = """
-        CREATE TABLE IF NOT EXISTS notificationsConsole (
+        CREATE TABLE IF NOT EXISTS notifications (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             destinataire_id INTEGER,
             message TEXT,
@@ -145,9 +145,6 @@ public class NotificationService {
                 }
             }
         }
-
-        // ✔️ Affichage unique après envoi
-        //System.out.println(" Message envoyé aux abonnés !");
     }
 
 
@@ -155,7 +152,7 @@ public class NotificationService {
     private void enregistrerNotification(int destinataireId, Employe expediteur, String message) {
         String contenu = "De " + expediteur.getPrenom() + " " + expediteur.getNom() + " : " + message;
 
-        String sql = "INSERT INTO notificationsConsole (destinataire_id, message) VALUES (?, ?)";
+        String sql = "INSERT INTO notifications (destinataire_id, message) VALUES (?, ?)";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, destinataireId);
@@ -169,7 +166,7 @@ public class NotificationService {
 
     public void afficherNotifications(Employe employe) {
         String sql = """
-        SELECT id, message, date_envoi FROM notificationsConsole 
+        SELECT id, message, date_envoi FROM notifications
         WHERE destinataire_id = ? AND lu = 0
         ORDER BY date_envoi ASC
     """;
@@ -210,7 +207,7 @@ public class NotificationService {
     }
 
     private void marquerCommeLue(int notificationId) {
-        String sql = "UPDATE notificationsConsole SET lu = 1 WHERE id = ?";
+        String sql = "UPDATE notifications SET lu = 1 WHERE id = ?";
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, notificationId);

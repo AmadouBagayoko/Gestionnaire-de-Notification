@@ -1,5 +1,6 @@
 import controller.AdminController;
 import controller.EmployeController;
+import implementation.NotificationEmail;
 import model.Administrateur;
 import model.Employe;
 import implementation.NotificationConsole;
@@ -19,6 +20,7 @@ public class Main {
 
         // Enregistrement du canal de notification (console)
         notificationService.ajouterCanalNotification(new NotificationConsole());
+        notificationService.ajouterCanalNotification(new NotificationEmail());
 
         // Création d’un admin par défaut
         adminService.insererAdminParDefaut();

@@ -97,4 +97,29 @@ public class EmployeService {
 
     public void supprimerEmploye(int id) {
     }
+
+    //Recuperer un employer par son email
+    public static Employe trouverEmployeParEmail(String email) {
+        String sql = "SELECT * FROM employes WHERE email = ?";
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                Employe e = new Employe();
+                e.setId(rs.getInt("id"));
+                e.setNom(rs.getString("nom"));
+                e.setPrenom(rs.getString("prenom"));
+                e.setEmail(rs.getString("email"));
+                e.setMotDePasse(rs.getString("motDePasse"));
+                return e;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche de l'employé : " + e.getMessage());
+        }
+        return null;
+    }
+
 }
